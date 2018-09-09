@@ -87,7 +87,7 @@ main(int argc, char *argv[])
   struct timeval  tv;
   gettimeofday(&tv, NULL);
 
-  double time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-  srandom(rseed?strtoseed(rseed):time_in_mill);
+  double time_in_micro = (tv.tv_sec) * 1000000 + (tv.tv_usec);
+  srandom(rseed?strtoseed(rseed):time_in_micro);
   yyparse();
 };
