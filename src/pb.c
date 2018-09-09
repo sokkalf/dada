@@ -9,6 +9,7 @@
 #include "check.h"
 #include "map.h"
 #include "transform.h"
+#include <sys/time.h>
 
 static char *start_symbol = NULL; /* to override the default start symbol */
 pRule rule_base;
@@ -83,6 +84,10 @@ main(int argc, char *argv[])
       case 'y': yydebug=1; break;
       };
   };
-  srandom(rseed?strtoseed(rseed):time(NULL));
+  struct timeval  tv;
+  gettimeofday(&tv, NULL);
+
+  double time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+  srandom(rseed?strtoseed(rseed):time_in_mill);
   yyparse();
 };
